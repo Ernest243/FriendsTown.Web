@@ -1,0 +1,18 @@
+﻿@{ Layout = null; }
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>BoddyMass</title>
+    </head>
+    <body>
+        <form>
+            <h3>Calculation of body mass index</h3>
+            Weight (kg): <input name="weight" /><br /><br />
+            Height (mts): <input name="height" /><br /><br />
+            <input type="submit" value="Calculate!"/>
+    </form>
+    <br />
+     Calculated Index: @ViewBag.Index
+    </body>
+</html>

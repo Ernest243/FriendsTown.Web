@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Doorman</title>
+</head>
+<body>
+
+    @if (ViewBag.Age < 18)
+    {
+        <h3>Sorry, you can't enter</h3>
+    }
+    else
+    {
+        <h3>Welcome to our party!</h3>    
+    }
+
+</body>
+</html>
+
