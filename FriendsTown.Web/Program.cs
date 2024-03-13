@@ -1,3 +1,5 @@
+using FriendsTown.Transversal;
+
 namespace FriendsTown.Web
 {
     public class Program
@@ -8,6 +10,7 @@ namespace FriendsTown.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<IEmailService, EmailService>();
 
             var app = builder.Build();
 

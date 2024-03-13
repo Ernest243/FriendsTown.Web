@@ -1,4 +1,5 @@
-﻿using FriendsTown.Web.Models;
+﻿using FriendsTown.Transversal;
+using FriendsTown.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FriendsTown.Web.Controllers
@@ -109,6 +110,20 @@ namespace FriendsTown.Web.Controllers
             };
 
             return View(product);
+        }
+
+        public ContentResult SendEmail([FromServices] IEmailService emailService) 
+        {
+            emailService.SendEmail(
+                "Administrator@FriendsTown.com",
+                "NewFriend@externalmail.com",
+                "Welcome to FriendsTown",
+                "<h3>Hi! NewFriend, FriendsTown welcomes you</h3>");
+
+            return new ContentResult
+            {
+                Content = "Email sent"
+            };
         }
     }
 }
