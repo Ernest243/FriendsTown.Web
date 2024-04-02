@@ -9,6 +9,11 @@ namespace FriendsTown.Domain
 {
     public class Event : Entity<Guid>
     {
+        public Event(Guid id) : base(id)
+        {
+            Id = id;
+        }
+
         public Friend Organizer { get; protected set; }
         public Activity ActivityType { get; protected set; }
         public Date Date { get; protected set; }
@@ -16,11 +21,6 @@ namespace FriendsTown.Domain
         public List<Friend> Participants { get; protected set; }
         public List<Offer> Offers { get; protected set; }
 
-
-        public Event(Guid id) : base(id) 
-        {
-            Id = id;
-        }
 
         public void Update(Friend organizer, Activity activityType, Date date, Place place) 
         {
@@ -31,11 +31,11 @@ namespace FriendsTown.Domain
         }
 
         public static Event Create(Guid id, Friend organizer, Activity activityType, Date date, Place place,
-            List<string> offers) 
+            List<string> offers)
         {
             Event theEvent = new Event(id);
             theEvent.Update(organizer, activityType, date, place);
-            theEvent.Offers = offers.Select(o => offers.Create(Guid.NewGuid()), theEvent, offers).ToList();
+            theEvent.Offers = offers.Select(o => Offer.Create(Guid.NewGuid(), theEvent, o)).ToList();
 
             return theEvent;
         }

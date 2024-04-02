@@ -12,7 +12,7 @@ namespace FriendsTown.Domain
         public Event Event { get; protected set; }
         public string Description { get; protected set; }
 
-        public Offer (Guid id) : base (id) 
+        public Offer(Guid id) : base(id)
         {
             Id = id;
         }
