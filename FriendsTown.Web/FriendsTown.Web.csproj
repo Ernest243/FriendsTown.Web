@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FriendsTown.Data\FriendsTown.Data.csproj" />
     <ProjectReference Include="..\FriendsTown.Transversal\FriendsTown.Transversal.csproj" />
   </ItemGroup>
 

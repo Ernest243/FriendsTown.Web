@@ -1,4 +1,6 @@
+using FriendsTown.Data;
 using FriendsTown.Transversal;
+using Microsoft.EntityFrameworkCore;
 
 namespace FriendsTown.Web
 {
@@ -11,6 +13,14 @@ namespace FriendsTown.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<IEmailService, EmailService>();
+
+            // Set up Database
+            var options = new DbContextOptionsBuilder<FriendsTownContext>()
+                .UseSqlServer(builder.Configuration.GetConnectionString("FriendsTown"))
+                .Options;
+
+            FriendsTownContext contexto = new FriendsTownContext(options);
+            contexto.Database.EnsureCreated();
 
             var app = builder.Build();
 
