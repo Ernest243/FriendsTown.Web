@@ -1,45 +1,111 @@
-﻿using FriendsTown.Web.Models;
+﻿using FriendsTown.Data.Repositories;
+using FriendsTown.Domain;
+using FriendsTown.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FriendsTown.Web.Controllers
 {
     public class ActivityController : Controller
     {
+        private readonly IActivityRepository _activityRepository;
+
+        public ActivityController(IActivityRepository activityRepository) 
+        {
+            _activityRepository = activityRepository;
+        }
+
         public IActionResult Index()
         {
-            var model = new List<ActivityViewModel>
+            var activities = _activityRepository.GetAll();
+
+            var model = activities.Select(a => new ActivityViewModel
             {
-                new ActivityViewModel { Id = Guid.NewGuid(), Name = "Climbing", Description = "Climb local peaks" },
-                new ActivityViewModel { Id = Guid.NewGuid(), Name = "Hiking", 
-                    Description = "Walk through natural trails"},
-                new ActivityViewModel { Id = Guid.NewGuid(), Name = "Yoga", Description = "Activity in a park" }
-            };
+                Id = a.Id,
+                Name = a.Name,
+                Description = a.Description
+            });
 
             return View(model);
         }
 
-        public IActionResult Edit() 
+        [HttpGet]
+        public IActionResult Edit(Guid id) 
         {
-            var model = new ActivityViewModel 
-            {
-                Id = Guid.NewGuid(),
-                Name = "Climbing",
-                Description = "Climb local peaks"
-            };
+            var activity = _activityRepository.FindById(id);
 
-            return View(model);
-        }
-
-        public IActionResult Details() 
-        {
             var model = new ActivityViewModel
             {
-                Id = Guid.NewGuid(),
-                Name = "Climbing",
-                Description = "Climb local peaks"
+                Id = id,
+                Name = activity.Name,
+                Description = activity.Description
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ActivityViewModel model) 
+        {
+            var actividad = new Activity(model.Id);
+            actividad.Update(model.Name, model.Description);
+            _activityRepository.Update(actividad);
+
+            return RedirectToAction("Index");   
+        }
+
+        public IActionResult Details(Guid id) 
+        {
+            var activity = _activityRepository.FindById(id);
+
+            var model = new ActivityViewModel
+            {
+                Id = activity.Id,
+                Name = activity.Name,
+                Description = activity.Description
+            };
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Create() 
+        {
+            var model = new ActivityViewModel();
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Create(ActivityViewModel model) 
+        {
+            var activity = new Activity(Guid.NewGuid());
+            activity.Update(model.Name, model.Description);
+            _activityRepository.Add(activity);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(Guid id) 
+        {
+            var activity = _activityRepository.FindById(id);
+
+            var model = new ActivityViewModel 
+            {
+                Id = activity.Id,
+                Name = activity.Name,
+                Description = activity.Description
+            };
+
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(Guid id) 
+        {
+            _activityRepository.Delete(id);
+
+            return RedirectToAction("Index");
         }
     }
 }
