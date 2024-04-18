@@ -125,5 +125,17 @@ namespace FriendsTown.Web.Controllers
                 Content = "Email sent"
             };
         }
+
+        [HttpGet]
+        public ViewResult MultipleProducts() { return View(); }
+
+        [HttpPost]
+        public ContentResult MultipleProducts(string[] product) 
+        {
+            return new ContentResult
+            {
+                Content = String.Join("-", product)
+            };
+        }
     }
 }
