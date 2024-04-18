@@ -4,12 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendsTown.Web", "FriendsTown.Web\FriendsTown.Web.csproj", "{F48F2ACD-8647-467D-9C05-3340C689094B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{23CAC732-D653-4651-82C8-930907D6194F} = {23CAC732-D653-4651-82C8-930907D6194F}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendsTown.Domain", "FriendsTown.Domain\FriendsTown.Domain.csproj", "{23CAC732-D653-4651-82C8-930907D6194F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendsTown.Transversal", "FriendsTown.Transversal\FriendsTown.Transversal.csproj", "{42AD76DC-A590-4537-8410-D79F7CD7616C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendsTown.Data", "FriendsTown.Data\FriendsTown.Data.csproj", "{2D604B68-85A6-4313-891F-5C74AE7B574C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendsTown.Data", "FriendsTown.Data\FriendsTown.Data.csproj", "{2D604B68-85A6-4313-891F-5C74AE7B574C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
