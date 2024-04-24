@@ -16,7 +16,7 @@ namespace FriendsTown.Domain
         {
             if (date.CompareTo(DateTime.Now) <= 0) 
             {
-                throw new ArgumentException("Date must be greater thasn today");
+                throw new ArgumentException("Date must be greater than today");
             }
 
             Value = date;
