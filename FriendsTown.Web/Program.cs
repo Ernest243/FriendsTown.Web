@@ -16,6 +16,7 @@ namespace FriendsTown.Web
             builder.Services.AddSingleton<IEmailService, EmailService>();
             builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
             builder.Services.AddScoped<IFriendRepository, FriendRepository>();
+            builder.Services.AddScoped<INewsRepository, NewsRepository>();
             builder.Services.AddDbContext<FriendsTownContext>(options =>
                 options.UseSqlServer("name=connectionStrings:FriendsTown"));
             
