@@ -26,5 +26,27 @@ namespace FriendsTown.Data.Repositories
         {
             return _context.News.OrderBy(a => a.Date.Value);
         }
+
+        public void Update(News news) 
+        {
+            var newsToUpdate = _context.News.Find(news.Id);
+
+            if (newsToUpdate != null) 
+            {
+                newsToUpdate.Update(news.Date, news.Place, news.Description);
+                _context.SaveChanges();
+            }
+        }
+
+        public void Delete(Guid id) 
+        {
+            var newsToDelete = _context.News.Find(id);
+
+            if (newsToDelete != null) 
+            {
+                _context.News.Remove(newsToDelete);
+                _context.SaveChanges();
+            }
+        }
     }
 }

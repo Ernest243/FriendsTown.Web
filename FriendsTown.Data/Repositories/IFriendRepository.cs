@@ -7,5 +7,6 @@ namespace FriendsTown.Data.Repositories
         IEnumerable<Friend> GetAll();
         Friend FindById(Guid id);
         void Add(Friend friend);
+        IEnumerable<Friend> GetByName(string name);
     }
 }
