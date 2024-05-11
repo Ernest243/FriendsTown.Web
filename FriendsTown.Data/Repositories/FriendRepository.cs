@@ -26,5 +26,11 @@ namespace FriendsTown.Data.Repositories
         {
             return _context.Friends.OrderBy(a => a.Name);
         }
+
+        public IEnumerable<Friend> GetByName(string name) 
+        {
+            return _context.Friends.Where(a => a.Name.Contains(name))
+                .OrderBy(a => a.Name);
+        }
     }
 }

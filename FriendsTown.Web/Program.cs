@@ -2,6 +2,7 @@ using FriendsTown.Data;
 using FriendsTown.Data.Repositories;
 using FriendsTown.Transversal;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace FriendsTown.Web
 {
@@ -19,6 +20,17 @@ namespace FriendsTown.Web
             builder.Services.AddScoped<INewsRepository, NewsRepository>();
             builder.Services.AddDbContext<FriendsTownContext>(options =>
                 options.UseSqlServer("name=connectionStrings:FriendsTown"));
+
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "FriendsTown.Web",
+                    Version = "v1"
+                });
+            });
+
+            builder.Services.AddCors();
             
 
             // Set up Database
@@ -41,6 +53,27 @@ namespace FriendsTown.Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller = Home}/{action = Index }/{id?}");
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiEndpoint");
+            });
+
+            app.UseCors(builder => builder.SetIsOriginAllowed(origin => true));
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Append("X-Frame-Options", "DENY");
+                await next.Invoke();
+            });
 
             app.MapControllerRoute(
                 name: "default",
