@@ -1,6 +1,7 @@
 ﻿using FriendsTown.Transversal;
 using FriendsTown.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FriendsTown.Web.Controllers
 {
@@ -136,6 +137,29 @@ namespace FriendsTown.Web.Controllers
             {
                 Content = String.Join("-", product)
             };
+        }
+
+        public ViewResult ViewOffice() 
+        {
+            return View();
+        }
+
+        public IActionResult Bored() 
+        {
+            HttpClient client = new HttpClient();
+            var response = client.GetAsync("http://www.boredapi.com/api/activity").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                var jsonData = JsonConvert.DeserializeObject<BoredViewModel>(data);
+
+                return View(jsonData);
+            }
+            else 
+            {
+                return NotFound();
+            }
         }
     }
 }
