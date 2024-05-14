@@ -1,0 +1,35 @@
+﻿@model FriendsTown.Web.Models.FriendApiModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List of friends</title>
+</head>
+<body>
+    <form method="post">
+        <span>Text: </span>
+        <input type="text" name="text" />
+        <input type="submit" value="Search" />
+    </form>
+    @if (Model != null)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.FriendsList)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    </tr>    
+                }
+            </tbody>
+        </table>    
+    }
+</body>
+</html>

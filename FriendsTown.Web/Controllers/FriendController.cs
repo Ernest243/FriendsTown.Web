@@ -45,5 +45,21 @@ namespace FriendsTown.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult List() 
+        {
+            return View();  
+        }
+
+        [HttpPost]
+        public IActionResult List(string text, [FromServices]IHttpClientFactory clientFactory) 
+        {
+            var client = clientFactory.CreateClient("FriendsTownWebApi");
+            var model = HttpClientJsonExtensions.GetFromJsonAsync<FriendApiModel>
+                (client, $"Friends/{text}").Result;
+
+            return View(model);
+        }
     }
 }

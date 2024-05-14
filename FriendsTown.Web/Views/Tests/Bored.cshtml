@@ -1,0 +1,20 @@
+﻿@{ Layout = null; }
+@model FriendsTown.Web.Models.BoredViewModel
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Get Activity</title>
+    </head>
+    <body>
+        <form>
+            <h4>Get Activity</h4>
+            <br />
+            Activity: <input value="@Model.Activity" /> <br>
+            Type: <input value="@Model.Type" /> <br>
+            Participants: <input value="@Model.Participants" /> <br>
+            Price: <input value="@Model.Price" /> <br><br>
+            <input type="submit" value="Get More" />
+        </form>
+    </body>
+</html>

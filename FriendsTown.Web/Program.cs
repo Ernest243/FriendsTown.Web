@@ -14,6 +14,11 @@ namespace FriendsTown.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            string apiUrl = builder.Configuration.GetValue<string>("ApiUrl");
+            builder.Services.AddHttpClient("FriendsTownWebApi", c => 
+                c.BaseAddress = new Uri(apiUrl));
+
             builder.Services.AddSingleton<IEmailService, EmailService>();
             builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
             builder.Services.AddScoped<IFriendRepository, FriendRepository>();
