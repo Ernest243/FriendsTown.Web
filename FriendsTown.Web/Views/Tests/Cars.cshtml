@@ -1,0 +1,52 @@
+﻿<div id="appCars">
+    <h4>Seller: <span v-text="seller"></span></h4>
+    <h4>
+        Address:
+        <span v-text="address"></span>
+        <span v-if="address.length < 10"> (too short) </span>
+        <span v-else> (address ok) </span>
+    </h4>
+    <h4>For sale: <span v-text="cars.length + ' cars'"></span></h4>
+    <h4>Total Amount: <span v-text="totalAmount"></span></h4>
+
+    <input v-model="address" />
+    
+    <table class="table table-bordered">
+        <tr>
+            <th>Model</th>
+            <th>Color</th>
+        </tr>
+        <tr v-for="car in cars">
+            <td v-text="car.model"></td>
+            <td v-text="car.color"></td>
+        </tr>
+    </table>
+</div>
+
+<script src="https://unpkg.com/vue@3.0.3/dist/vue.global.prod.js"></script>
+<script>
+    const appCars = Vue.createApp({
+        data() {
+            return {
+                seller: 'SuperCars',
+                address: 'Street 2. Madrid',
+                cars: [
+                    { model: "Ford Ka", color: "Red", Price: 14000 },
+                    { model: "Toyota Prius", color: "Gray", Price: 16000 },
+                    { model: "Lexus RX", color: "Gold", Price: 48000 }
+                ]
+            }
+        },
+        computed:
+        {
+            totalAmount: function () {
+                var total = 0;
+                for (var i = 0; i < this.cars.length; i++) {
+                    total += this.cars[i].Price;
+                }
+                return total;
+            }
+        }
+    });
+    appCars.mount('#appCars');
+</script>

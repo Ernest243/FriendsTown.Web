@@ -1,0 +1,84 @@
+<h4>Create Event</h4>
+<br />
+<div class="row" id="appEvent">
+    <form asp-action="Create">
+        <div class="text-danger"></div>
+        <div class="form-group">
+            <label for="Date" class="control-label">Date:</label>
+            <input id="Date" name="Date" type="date" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="IdActivity" class="control-label">Activity:</label>
+            <select id="idActivity" name="idActivity" class="form-control">
+                <option>--Select the Activity</option>
+                <option v-for="activity in activitiesList" v-bind:value="activity.Id"> {{activity.Name}} </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="IdOrganizer" class="control-label">Organizer:</label>
+            <select id="idOrganizer" name="idOrganizer" class="form-control">
+                <option>--Select the Organizer</option>
+                <option v-for="organizer in organizersList" v-bind:value="organizer.Id"> {{ organizer.Name }} </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="City" class="control-label">City: </label>
+            <input v-text="ciudad" id="City" name="City" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="Street" class="control-label">Street: </label>
+            <input v-text="calle" id="Street" name="Street" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="Number" class="control-label">Number: </label>
+            <input v-text="numero" id="Number" name="Number" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="Reference" class="control-label">Reference: </label>
+            <input v-text="referencia" id="Reference" name="Reference" class="form-control" />
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+        <br />
+    </form>
+</div>
+<div>
+    <a asp-action="Index">Back to the List</a>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="https://unpkg.com/vue@3.0.3/dist/vue.global.js"></script>
+<script>
+    const appEvent = Vue.createApp({
+        data() {
+            return {
+                activitiesList: @Html.Raw(ViewBag.ActivitiesList),
+                organizersList: @Html.Raw(ViewBag.FriendsList),
+                organizerId: null, 
+                organizerName: null, 
+                organizers: [],
+                date: null, 
+                city: "Caracas", //null,
+                street: null,
+                number: null, 
+                reference: null, 
+                isOpen: false
+            }
+        },
+        methods: {
+            onChange() {
+                var searchText = $('#Organizer').val();
+                this.isOpen = true;
+                this.organizers = this.organizersList.filter(item => item.number.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+                this.isOpen = this.organizers.length > 0;
+            },
+            setResult(id, name) {
+                $('#Organizer').val(number);
+                $('#OrganizerId').val(id);
+                this.isOpen = false;
+            }
+        }
+    });
+    appEvent.mount('#appEvent');
+</script>
