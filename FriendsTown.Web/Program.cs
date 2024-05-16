@@ -23,6 +23,7 @@ namespace FriendsTown.Web
             builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
             builder.Services.AddScoped<IFriendRepository, FriendRepository>();
             builder.Services.AddScoped<INewsRepository, NewsRepository>();
+            builder.Services.AddScoped<IEventRepository, EventRepository>();
             builder.Services.AddDbContext<FriendsTownContext>(options =>
                 options.UseSqlServer("name=connectionStrings:FriendsTown"));
 

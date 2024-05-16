@@ -161,5 +161,11 @@ namespace FriendsTown.Web.Controllers
                 return NotFound();
             }
         }
+
+        public ViewResult Cars()
+        
+        {
+            return View();
+        }
     }
 }
