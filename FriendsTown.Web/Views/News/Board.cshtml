@@ -1,0 +1,61 @@
+<h4>News Board</h4>
+<div id="appBoard">
+    <div class="row" v-for="news in newsList">
+        <div class="col-2"></div>
+        <div class="col-6 border border-primary">
+            <div v-text="news.description"></div>
+            <div>
+                <span v-text="news.newsDate"></span>
+            </div>
+            <div>
+                <span>Place: </span>
+                <span v-text="news.place"></span>
+            </div>
+            <div>
+                <span v-if="news.remainingDays > 0">
+                    Remaining Days:
+                    <span v-text="news.remainingDays"></span>
+                </span>
+                <span v-else>Ended</span>
+            </div>
+        </div>
+        <div class="col-4"> </div>
+    </div>
+</div>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0-0/axios.min.js"></script>
+
+<script src="https://unpkg.com/vue@3.0.3/dist/vue.global.js"></script>
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/boardhub").build();
+    const appBoard = Vue.createApp({
+        data() {
+            return {
+                newsList: [],
+                connected: false
+            }
+        },
+        methods: {
+            getBoard() {
+                axios.get('http://localhost:5000/api/board').then(response => {
+                    this.newsList = Array.from(response.data);
+                });
+            }
+        },
+        mounted() {
+            this.getBoard();
+
+            connection.on("newsCreated", function (message) {
+                root.getBoard();
+            });
+
+            connection.start().then(function () {
+                appBoard.connected = true;
+            }).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
+    });
+    const root = appBoard.mount('#appBoard');
+</script>
+

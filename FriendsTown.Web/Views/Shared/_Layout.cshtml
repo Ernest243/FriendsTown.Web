@@ -5,30 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FriendsTown.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/FriendsTown.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark border-bottom
+             box-shadow mb-3">
             <div class="container-fluid">
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex
+                     justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-tabs">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Activity"
-                            asp-action="Index">Activities</a>
+                            <a class="nav-link text-white" asp-area=""
+                               asp-controller="Activity" asp-action="Index">Activities</a>
                         </li>
                         <li class="nav-tabs">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Friend"
-                            asp-action="Index">Friends</a>
+                            <a class="nav-link text-white" asp-area=""
+                               asp-controller="Friend" asp-action="Index">Friends</a>
                         </li>
                         <li class="nav-tabs">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Event"
-                            asp-action="Index">Events</a>
+                            <a class="nav-link text-white" asp-area=""
+                               asp-controller="Event" asp-action="Index">Events</a>
                         </li>
                         <li class="nav-tabs">
-                            <a class="nav-link text-white" asp-area="" asp-controller="News"
-                            asp-action="Index">News</a>
+                            <a class="nav-link text-white" asp-area=""
+                               asp-controller="News" asp-action="Index">News</a>
+                        </li>
+                        <li class="nav-tabs">
+                            <a class="nav-link text-white" asp-area=""
+                               asp-controller="News" asp-action="Board">Board</a>
                         </li>
                     </ul>
                 </div>

@@ -3,6 +3,7 @@ using FriendsTown.Data.Repositories;
 using FriendsTown.Transversal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using FriendsTown.Web.Hubs;
 
 namespace FriendsTown.Web
 {
@@ -14,6 +15,7 @@ namespace FriendsTown.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSignalR();
 
             string apiUrl = builder.Configuration.GetValue<string>("ApiUrl");
             builder.Services.AddHttpClient("FriendsTownWebApi", c => 
@@ -65,6 +67,15 @@ namespace FriendsTown.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller = Home}/{action = Index }/{id?}");
+            });
+
+            app.UseEndpoints(endpoints => 
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                
+                endpoints.MapHub<BoardHub>("/boardhub");
             });
 
             app.UseSwagger();
