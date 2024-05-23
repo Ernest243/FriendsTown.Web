@@ -11,5 +11,6 @@ namespace FriendsTown.Web.Models
         public string Street { get; set; }
         public string Number { get; set; }
         public string Reference { get; set; }
+        public List<string> Offers { get; set; }
     }
 }

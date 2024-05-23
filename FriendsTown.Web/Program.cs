@@ -4,6 +4,7 @@ using FriendsTown.Transversal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using FriendsTown.Web.Hubs;
+using FriendsTown.Services;
 
 namespace FriendsTown.Web
 {
@@ -15,8 +16,9 @@ namespace FriendsTown.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
             builder.Services.AddSignalR();
-
+            
             string apiUrl = builder.Configuration.GetValue<string>("ApiUrl");
             builder.Services.AddHttpClient("FriendsTownWebApi", c => 
                 c.BaseAddress = new Uri(apiUrl));
@@ -26,6 +28,8 @@ namespace FriendsTown.Web
             builder.Services.AddScoped<IFriendRepository, FriendRepository>();
             builder.Services.AddScoped<INewsRepository, NewsRepository>();
             builder.Services.AddScoped<IEventRepository, EventRepository>();
+            builder.Services.AddScoped<IEventService, EventService>();  
+
             builder.Services.AddDbContext<FriendsTownContext>(options =>
                 options.UseSqlServer("name=connectionStrings:FriendsTown"));
 

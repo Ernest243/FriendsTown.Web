@@ -7,14 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="9.0.0-preview.3.24172.13" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="ValueInjecter" Version="3.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FriendsTown.Data\FriendsTown.Data.csproj" />
+    <ProjectReference Include="..\FriendsTown.Services\FriendsTown.Services.csproj" />
     <ProjectReference Include="..\FriendsTown.Transversal\FriendsTown.Transversal.csproj" />
   </ItemGroup>
 
