@@ -1,0 +1,27 @@
+﻿@model IEnumerable<FriendsTown.Web.Models.EventListViewModel>
+<p>
+    <a asp-action="CreateWithOffers">Create New</a>
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Date)</th>
+            <th>@Html.DisplayNameFor(model => model.Organizer)</th>
+            <th>@Html.DisplayNameFor(model => model.Activity)</th>
+            <th>@Html.DisplayNameFor(model => model.Place)</th>
+            <th>@Html.DisplayNameFor(model => model.Offer)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                <td>@Html.DisplayFor(modelItem => item.Organizer)</td>
+                <td>@Html.DisplayFor(modelItem => item.Activity)</td>
+                <td>@Html.DisplayFor(modelItem => item.Place)</td>
+                <td>@Html.DisplayFor(modelItem => item.Offer)</td>
+            </tr>    
+        }
+    </tbody>
+</table>

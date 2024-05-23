@@ -1,5 +1,7 @@
+using AutoMapper;
 using FriendsTown.Data.Repositories;
 using FriendsTown.Domain;
+using FriendsTown.Services;
 using FriendsTown.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -11,13 +13,18 @@ namespace FriendsTown.Web.Controllers
         private readonly IEventRepository _eventRepository;
         private readonly IActivityRepository _activityRepository;
         private readonly IFriendRepository _friendRepository;
+        private readonly IEventService _eventService;
+        private readonly IMapper _mapper;
 
         public EventController(IEventRepository eventRepository, 
-        IActivityRepository activityRepository, IFriendRepository friendRepository)
+        IActivityRepository activityRepository, IFriendRepository friendRepository, IEventService eventService,
+        IMapper mapper)
         {
             _eventRepository = eventRepository;
             _activityRepository = activityRepository;
             _friendRepository = friendRepository;
+            _eventService = eventService;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -101,6 +108,36 @@ namespace FriendsTown.Web.Controllers
             ViewBag.Data = stringData;
 
             return View();
+        }
+
+        public IActionResult ListWithOffers()
+        {
+            var results = _eventService.GetEventsWithOffers();
+            List<EventListViewModel> model =
+                _mapper.Map<List<EventListViewModel>>(results);
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult CreateWithOffers()
+        {
+            var ActivitiesList = _activityRepository.GetAll()
+                .Select(a => new DropDownViewModel
+                { Id = a.Id, Name = a.Name }).ToList();
+            var FriendsList = _friendRepository.GetAll()
+                .Select(a => new DropDownViewModel
+                { Id = a.Id, Name = a.Name }).ToList();
+            ViewBag.ActivitiesList = JsonSerializer.Serialize(ActivitiesList);
+            ViewBag.FriendsList = JsonSerializer.Serialize(FriendsList);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateWithOffers(EventInputModel model)
+        {
+            DtoEventData eventData = _mapper.Map<DtoEventData>(model);
+            _eventService.RegisterEventWithOffers(eventData);
+            return RedirectToAction("ListWithOffers");
         }
     }
 }
